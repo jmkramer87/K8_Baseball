@@ -14,17 +14,17 @@ spec:
         workingDir: /data
         command: ["/bin/sh","-c"]
         args: 
-        - python3 main.py;
+        - python3 preproccessing_pitchers.py;
 
         volumeMounts:
         - name: jkd22-pv
           mountPath: /data
         resources:
             limits:
-              memory: 30Gi
+              memory: 32Gi
               cpu: 1
             requests:
-              memory: 30Gi
+              memory: 32Gi
               cpu: 1
       volumes:
       - name: jkd22-pv 

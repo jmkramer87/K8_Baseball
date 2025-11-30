@@ -6,7 +6,6 @@ import math
 
 def whipCreator(df):
     #Takes dataframe and creates whip values
-
     outsCol = []
     for p in df['p_formatted_ip']:
         if(p - math.floor(p) == 0.1):
@@ -19,10 +18,12 @@ def whipCreator(df):
     df['ip'] = outsCol
     df['whip'] = (df['walk']+df['hit'])/df['ip']
 
+    return df
+
 def cleaner(df):
     numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
     df = df.select_dtypes(include=numerics)
-    whipCreator(df)
+    df = whipCreator(df)
 
     return df
 
@@ -36,9 +37,9 @@ def name(df1, df2, df3):
 
     return names
 
-df1 = pd.read_csv('~\data\Pitchers 2022.csv', encoding='UTF-8')
-df2 = pd.read_csv('~\data\Pitchers 2023.csv', encoding='UTF-8')
-df3 = pd.read_csv('~\data\Pitchers 2024.csv', encoding='UTF-8')
+df1 = pd.read_csv('~/data/Pitchers 2022.csv', encoding='UTF-8')
+df2 = pd.read_csv('~/data/Pitchers 2023.csv', encoding='UTF-8')
+df3 = pd.read_csv('~/data/Pitchers 2024.csv', encoding='UTF-8')
 
 temp = name(df1,df2,df3)
 
@@ -58,4 +59,4 @@ names = df['last_name, first_name']
 df.drop(labels=['last_name, first_name'], axis=1,inplace = True)
 df.insert(0, 'last_name, first_name', names)
 
-df.to_csv('~\data\Pitchers 22-24 Average Cleaned.csv', encoding='utf-8')
+#df.to_csv('~/Pitchers 22-24 Average Cleaned.csv', encoding='utf-8')
