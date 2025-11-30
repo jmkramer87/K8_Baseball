@@ -1,12 +1,5 @@
 This project looks at baseball data from 2022-24 to attempt to predict fantasy values from 2025.  The working version will be using models produced here to use 3 years of average data to predict players with high value for future seasons.
 
-Preprocessing involves several steps
--Temporary removal of names to deal with numerics only
--Removal of non-useful columns (such as year)
--Removal of NA value columns (primarily for pitchers)
--Changing innings pitched to be in thirds instead of 0.1 and 0.2 notation
--Creation of WHIP for pitchers
--3-year average values for all numerical columns
--Addition back in of names to identify players after completion of regression analysis
+Preprocessing involves several steps: temporary removal of names to deal with numerics only, removal of non-useful columns (such as year), removal of NA value columns (primarily for pitchers), changing innings pitched to be in thirds instead of 0.1 and 0.2 notation, creation of WHIP for pitchers, 3-year average values for all numerical columns, addition back in of names to identify players after completion of regression analysis
 
 Several machine learning algorithms are applied to find the best one to model these values (including linear, ridge, lasso, random forest, decision tree, and SVR). They are tested using r2 and RSME.
