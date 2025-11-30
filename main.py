@@ -3,7 +3,7 @@ import numpy as np
 import math
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import root_mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.pipeline import Pipeline
@@ -34,7 +34,7 @@ model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 
 f.write(f"Linear R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"Linear RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"Linear RMSE: {math.sqrt(mean_squared_error(y_test, predictions))}\n")
 
 #XGBoost
 param_grid = {
@@ -59,7 +59,7 @@ predictions = grid_search.predict(X_test)
 f.write(f"XGBoost best parameters: {grid_search.best_params_}\n")
 f.write(f"XGBoost best score: {grid_search.best_score_}\n")
 f.write(f"XGBoost R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"XGBoost RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"XGBoost RMSE: {math.sqrt(mean_squared_error(y_test, predictions))}\n")
 
 #Decision Tree
 param_grid = {
@@ -83,7 +83,7 @@ predictions = grid_search.predict(X_test)
 f.write(f"DecisionTree best parameters: {grid_search.best_params_}\n")
 f.write(f"DecisionTree best score: {grid_search.best_score_}\n")
 f.write(f"DecisionTree R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"DecisionTree RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"DecisionTree RMSE: {math.sqrt(mean_squared_error(y_test, predictions))}\n")
 
 #Random Forest
 param_grid = {
@@ -108,7 +108,7 @@ predictions = grid_search.predict(X_test)
 f.write(f"RandomForest best parameters: {grid_search.best_params_}\n")
 f.write(f"RandomForest best score: {grid_search.best_score_}\n")
 f.write(f"RandomForest R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"RandomForest RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"RandomForest RMSE: {math.sqrt(mean_squared_error(y_test, predictions))}\n")
 
 #Lasso
 param_grid = {
@@ -131,7 +131,7 @@ predictions = grid_search.predict(X_test)
 f.write(f"Lasso best parameters: {grid_search.best_params_}\n")
 f.write(f"Lasso best score: {grid_search.best_score_}\n")
 f.write(f"Lasso R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"Lasso RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"Lasso RMSE: {math.sqrt(mean_squared_error(y_test, predictions))}\n")
 
 #Ridge
 param_grid = {
@@ -154,7 +154,7 @@ predictions = grid_search.predict(X_test)
 f.write(f"Ridge best parameters: {grid_search.best_params_}\n")
 f.write(f"Ridge best score: {grid_search.best_score_}\n")
 f.write(f"Ridge R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"Ridge RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"Ridge RMSE: {math.sqrt(mean_squared_error(y_test, predictions))}\n")
 
 #SVR
 param_grid = {
@@ -178,7 +178,7 @@ predictions = grid_search.predict(X_test)
 f.write(f"SVR best parameters: {grid_search.best_params_}\n")
 f.write(f"SVR best score: {grid_search.best_score_}\n")
 f.write(f"SVR R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"SVR RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"SVR RMSE: {math.sqrt(mean_squared_error(y_test, predictions))}\n")
 
 f.write("Successful run!")
 
