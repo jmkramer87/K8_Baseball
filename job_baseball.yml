@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pod-baseball-jkd22
+spec:
+  template:
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: pod-baseball-jkd22
+        image: python:3.10
+        tty: true
+        stdin: true
+        workingDir: /data
+        command: ["/bin/sh","-c"]
+        args: 
+        - python3 main.py;
+
+        volumeMounts:
+        - name: jkd22-pv
+          mountPath: /data
+        resources:
+            limits:
+              memory: 20Gi
+              cpu: 1
+            requests:
+              memory: 20Gi
+              cpu: 1
+      volumes:
+      - name: jkd22-pv 
+        persistentVolumeClaim:
+            claimName: jkd22-pv
+      restartPolicy: Never      
+  backoffLimit: 0
+
