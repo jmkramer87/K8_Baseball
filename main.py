@@ -25,15 +25,16 @@ X = X.astype(float)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
+f = open("logs-jkd22.txt", "w")
+
 #Linear Regression
 model = LinearRegression()
 model.fit(X_train, y_train)
 
 predictions = model.predict(X_test)
 
-with open("logs-jkd22.txt", "a") as f:
-  print(f"Linear R2: {r2_score(y_test, predictions)*100}", file=f)
-  print(f"Linear RMSE: {root_mean_squared_error(y_test, predictions)}", file=f)
+f.write(f"Linear R2: {r2_score(y_test, predictions)*100}\n")
+f.write(f"Linear RMSE: {root_mean_squared_error(y_test, predictions)}\n")
 
 #XGBoost
 param_grid = {
@@ -55,12 +56,10 @@ grid_search.fit(X_train, y_train)
 
 predictions = grid_search.predict(X_test)
 
-with open("logs-jkd22.txt", "a") as f:
-  print(f"XGBoost best parameters: {grid_search.best_params_}", file=f)
-  print(f"XGBoost best score: {grid_search.best_score_}", file=f)
-
-  print(f"XGBoost R2: {r2_score(y_test, predictions)*100}", file=f)
-  print(f"XGBoost RMSE: {root_mean_squared_error(y_test, predictions)}", file=f)
+f.write(f"XGBoost best parameters: {grid_search.best_params_}\n")
+f.write(f"XGBoost best score: {grid_search.best_score_}\n")
+f.write(f"XGBoost R2: {r2_score(y_test, predictions)*100}\n")
+f.write(f"XGBoost RMSE: {root_mean_squared_error(y_test, predictions)}\n")
 
 #Decision Tree
 param_grid = {
@@ -81,12 +80,10 @@ grid_search.fit(X_train, y_train)
 
 predictions = grid_search.predict(X_test)
 
-with open("logs-jkd22.txt", "a") as f:
-  print(f"DecisionTree best parameters: {grid_search.best_params_}", file=f)
-  print(f"DecisionTree best score: {grid_search.best_score_}", file=f)
-
-  print(f"DecisionTree R2: {r2_score(y_test, predictions)*100}", file=f)
-  print(f"DecisionTree RMSE: {root_mean_squared_error(y_test, predictions)}", file=f)
+f.write(f"DecisionTree best parameters: {grid_search.best_params_}\n")
+f.write(f"DecisionTree best score: {grid_search.best_score_}\n")
+f.write(f"DecisionTree R2: {r2_score(y_test, predictions)*100}\n")
+f.write(f"DecisionTree RMSE: {root_mean_squared_error(y_test, predictions)}\n")
 
 #Random Forest
 param_grid = {
@@ -108,12 +105,10 @@ grid_search.fit(X_train, y_train)
 
 predictions = grid_search.predict(X_test)
 
-with open("logs-jkd22.txt", "a") as f:
-  print(f"RandomForest best parameters: {grid_search.best_params_}", file=f)
-  print(f"RandomForest best score: {grid_search.best_score_}", file=f)
-
-  print(f"RandomForest R2: {r2_score(y_test, predictions)*100}", file=f)
-  print(f"RandomForest RMSE: {root_mean_squared_error(y_test, predictions)}", file=f)
+f.write(f"RandomForest best parameters: {grid_search.best_params_}\n")
+f.write(f"RandomForest best score: {grid_search.best_score_}\n")
+f.write(f"RandomForest R2: {r2_score(y_test, predictions)*100}\n")
+f.write(f"RandomForest RMSE: {root_mean_squared_error(y_test, predictions)}\n")
 
 #Lasso
 param_grid = {
@@ -133,12 +128,10 @@ grid_search.fit(X_train, y_train)
 
 predictions = grid_search.predict(X_test)
 
-with open("logs-jkd22.txt", "a") as f:
-  print(f"Lasso best parameters: {grid_search.best_params_}", file=f)
-  print(f"Lasso best score: {grid_search.best_score_}", file=f)
-
-  print(f"Lasso R2: {r2_score(y_test, predictions)*100}", file=f)
-  print(f"Lasso RMSE: {root_mean_squared_error(y_test, predictions)}", file=f)
+f.write(f"Lasso best parameters: {grid_search.best_params_}\n")
+f.write(f"Lasso best score: {grid_search.best_score_}\n")
+f.write(f"Lasso R2: {r2_score(y_test, predictions)*100}\n")
+f.write(f"Lasso RMSE: {root_mean_squared_error(y_test, predictions)}\n")
 
 #Ridge
 param_grid = {
@@ -158,12 +151,10 @@ grid_search.fit(X_train, y_train)
 
 predictions = grid_search.predict(X_test)
 
-with open("logs-jkd22.txt", "a") as f:
-  print(f"Ridge best parameters: {grid_search.best_params_}", file=f)
-  print(f"Ridge best score: {grid_search.best_score_}", file=f)
-
-  print(f"Ridge R2: {r2_score(y_test, predictions)*100}", file=f)
-  print(f"Ridge RMSE: {root_mean_squared_error(y_test, predictions)}", file=f)
+f.write(f"Ridge best parameters: {grid_search.best_params_}\n")
+f.write(f"Ridge best score: {grid_search.best_score_}\n")
+f.write(f"Ridge R2: {r2_score(y_test, predictions)*100}\n")
+f.write(f"Ridge RMSE: {root_mean_squared_error(y_test, predictions)}\n")
 
 #SVR
 param_grid = {
@@ -184,10 +175,12 @@ grid_search.fit(X_train, y_train)
 
 predictions = grid_search.predict(X_test)
 
-with open("logs-jkd22.txt", "a") as f:
-  print(f"SVR best parameters: {grid_search.best_params_}", file=f)
-  print(f"SVR best score: {grid_search.best_score_}", file=f)
+f.write(f"SVR best parameters: {grid_search.best_params_}\n")
+f.write(f"SVR best score: {grid_search.best_score_}\n")
+f.write(f"SVR R2: {r2_score(y_test, predictions)*100}\n")
+f.write(f"SVR RMSE: {root_mean_squared_error(y_test, predictions)}\n")
 
-  print(f"SVR R2: {r2_score(y_test, predictions)*100}", file=f)
-  print(f"SVR RMSE: {root_mean_squared_error(y_test, predictions)}", file=f)
+f.write("Successful run!")
+
+f.close()
 
