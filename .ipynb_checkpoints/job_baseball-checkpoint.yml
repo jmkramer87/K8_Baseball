@@ -14,7 +14,6 @@ spec:
         workingDir: /data
         command: ["/bin/sh","-c"]
         args: 
-        - cp -r /jkd22/* /data/
         - python3 main.py;
 
         volumeMounts:
@@ -22,10 +21,10 @@ spec:
           mountPath: /data
         resources:
             limits:
-              memory: 40Gi
+              memory: 30Gi
               cpu: 1
             requests:
-              memory: 40Gi
+              memory: 30Gi
               cpu: 1
       volumes:
       - name: jkd22-pv 
