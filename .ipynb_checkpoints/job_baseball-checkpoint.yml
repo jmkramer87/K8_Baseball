@@ -14,6 +14,7 @@ spec:
         workingDir: /data
         command: ["/bin/sh","-c"]
         args: 
+        - cp -r /jkd22/* /data/
         - python3 main.py;
 
         volumeMounts:

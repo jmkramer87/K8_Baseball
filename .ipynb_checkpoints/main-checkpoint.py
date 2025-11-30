@@ -25,7 +25,7 @@ X = X.astype(float)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-f = open("logs-jkd22.txt", "w")
+f = open("logs-jkd22.txt", "a")
 
 #Linear Regression
 model = LinearRegression()
@@ -41,8 +41,8 @@ param_grid = {
     'pca__n_components': range(5, 60, 1),
     'regression__max_depth': range(3, 9, 1),
     'regression__learning_rate': [0.01, 0.1, 0.2],
-    'regression__subsample': range(0.6, 1.0, 0.1),
-    'regression__colsample_bytree': range(0.6, 1.0, 0.1),
+    'regression__subsample': [x / 10.0 for x in range(6, 10, 1)],
+    'regression__colsample_bytree': [x / 10.0 for x in range(6, 10, 1)]
 }
 
 pipe = Pipeline([
@@ -113,7 +113,7 @@ f.write(f"RandomForest RMSE: {root_mean_squared_error(y_test, predictions)}\n")
 #Lasso
 param_grid = {
     'pca__n_components': range(10, 60, 1),
-    'regression__alpha': range(0.05, 0.2, 0.01),
+    'regression__alpha': [x / 100.0 for x in range(5, 20, 1)],
     'regression__max_iter': range(500, 2000, 100)
 }
 
@@ -136,7 +136,7 @@ f.write(f"Lasso RMSE: {root_mean_squared_error(y_test, predictions)}\n")
 #Ridge
 param_grid = {
     'pca__n_components': range(10, 60, 1),
-    'regression__alpha': range(0.05, 0.2, 0.01),
+    'regression__alpha': [x / 100.0 for x in range(5, 20, 1)],
     'regression__max_iter': range(500, 2000, 100)
 }
 

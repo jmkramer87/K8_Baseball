@@ -3,21 +3,26 @@ kind: Pod
 metadata:
   name: pod-pvc-jkd22
 spec:
+  automountServiceAccountToken: false
   containers:
-  - name: pod-pvc-jkd22
-    image: ubuntu:20.04
-    command: ["sh", "-c", "echo 'Im a new pod' && sleep infinity"]
+  - name: pod-jkd22-train
+    image: gitlab-registry.nrp-nautilus.io/skhan/dl_pytorch:4bd8b3be
+    tty: true
+    stdin: true
+    workingDir: /data
+    command: ["/bin/sh", "-c", "echo 'Im a new pod' && sleep infinity"]
+    volumeMounts:
+    - name: jkd22-pv
+      mountPath: /data
     resources:
       limits:
         memory: 20Gi
-        cpu: 1
+        cpu: "1"
       requests:
         memory: 20Gi
-        cpu: 1
-    volumeMounts:
-    - mountPath: /data
-      name: jkd22-pv
+        cpu: "1"
   volumes:
-    - name: jkd22-pv
-      persistentVolumeClaim:
-        claimName: jkd22-pv
+  - name: jkd22-pv
+    persistentVolumeClaim:
+      claimName: jkd22-pv
+  restartPolicy: Never
