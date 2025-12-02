@@ -11,7 +11,7 @@ spec:
         image: python:3.10
         tty: true
         stdin: true
-        workingDir: /data
+        workingDir: /data/baseball/K8_Baseball
         command: ["/bin/sh","-c"]
         args: 
         - python3 main.py;

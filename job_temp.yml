@@ -9,7 +9,7 @@ spec:
       - name: job-jkd22
         image: python:3.10
         workingDir: /data/baseball/K8_Baseball
-        command: ["/bin/bash", "-c", "python", "temp_prep.py"]
+        command: ["/bin/bash", "-c", "python"]
         args: 
         - python temp_prep.py
         resources:
