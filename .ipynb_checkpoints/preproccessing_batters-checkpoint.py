@@ -22,9 +22,9 @@ def name(df1, df2, df3):
 
     return names
 
-df1 = pd.read_csv('~/data/Batters 2022a.csv', delimiter=';', encoding='UTF-8')
-df2 = pd.read_csv('~/data/Batters 2023a.csv', delimiter=';', encoding='UTF-8')
-df3 = pd.read_csv('~/data/Batters 2024a.csv', delimiter=';', encoding='UTF-8')
+df1 = pd.read_csv('~/data/Batters 2022.csv', sep=';', encoding='UTF-8')
+df2 = pd.read_csv('~/data/Batters 2023.csv', sep=';', encoding='UTF-8')
+df3 = pd.read_csv('~/data/Batters 2024.csv', sep=';', encoding='UTF-8')
 
 temp = name(df1,df2,df3)
 
@@ -43,4 +43,4 @@ names = df['name']
 df.drop(labels=['name'], axis=1,inplace = True)
 df.insert(0, 'name', names)
 
-#df.to_csv('~/data/Batters 22-24 Average Cleaned.csv', encoding='utf-8')
+df.to_csv('~/data/Batters 22-24 Average Cleaned.csv', encoding='utf-8')

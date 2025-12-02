@@ -27,6 +27,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 f = open("logs-jkd22.txt", "a")
 
+f.write("Starting Regression Analysis\n")
+
 #Linear Regression
 model = LinearRegression()
 model.fit(X_train, y_train)

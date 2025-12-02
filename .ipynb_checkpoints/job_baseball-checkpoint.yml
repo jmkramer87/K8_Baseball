@@ -14,8 +14,7 @@ spec:
         workingDir: /data
         command: ["/bin/sh","-c"]
         args: 
-        - python3 preproccessing_pitchers.py;
-
+        - python3 main.py;
         volumeMounts:
         - name: jkd22-pv
           mountPath: /data
@@ -31,5 +30,5 @@ spec:
         persistentVolumeClaim:
             claimName: jkd22-pv
       restartPolicy: Never      
-  backoffLimit: 0
+  backoffLimit: 1
 

@@ -1,23 +1,17 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pod-baseball-jkd22
+  name: job-jkd22
 spec:
   template:
     spec:
-      automountServiceAccountToken: false
       containers:
-      - name: pod-baseball-jkd22
+      - name: job-jkd22
         image: python:3.10
-        tty: true
-        stdin: true
         workingDir: /data
-        command: ["/bin/sh","-c"]
+        command: ["/bin/bash", "-c", "python", "/data/baseball/K8_Baseball/temp_prep.py"]
         args: 
-        - python3 main.py;
-        volumeMounts:
-        - name: jkd22-pv
-          mountPath: /data
+        - python temp_prep.py
         resources:
             limits:
               memory: 32Gi
@@ -30,5 +24,5 @@ spec:
         persistentVolumeClaim:
             claimName: jkd22-pv
       restartPolicy: Never      
-  backoffLimit: 1
-
+  backoffLimit: 2
+  
