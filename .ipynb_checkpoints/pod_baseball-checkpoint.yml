@@ -9,7 +9,7 @@ spec:
     image: gitlab-registry.nrp-nautilus.io/skhan/dl_pytorch:4bd8b3be
     tty: true
     stdin: true
-    workingDir: /data
+    workingDir: /data/baseball/K8_Baseball
     command: ["/bin/sh", "-c", "echo 'Im a new pod' && sleep infinity"]
     volumeMounts:
     - name: jkd22-pv

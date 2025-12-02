@@ -8,8 +8,8 @@ spec:
       containers:
       - name: job-jkd22
         image: python:3.10
-        workingDir: /data
-        command: ["/bin/bash", "-c", "python", "/data/baseball/K8_Baseball/temp_prep.py", "/data/baseball/K8_Baseball/logs-jkd22.txt", "/data/baseball/K8_baseball/data/Batters 22-24 Average Cleaned.csv"]
+        workingDir: /data/baseball/K8_Baseball
+        command: ["/bin/bash", "-c", "python", "temp_prep.py"]
         args: 
         - python temp_prep.py
         resources:
