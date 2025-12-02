@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 #Data Preparation
-df = pd.read_csv('~/data/Batters 22-24 Average Cleaned.csv', encoding='UTF-8')
+df = pd.read_csv('/data/baseball/K8_Baseball/data/Batters 22-24 Average Cleaned.csv', encoding='UTF-8')
 
 f = open("logs-jkd22.txt", "a")
 
