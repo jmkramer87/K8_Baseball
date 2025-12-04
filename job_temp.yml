@@ -8,8 +8,8 @@ spec:
       containers:
       - name: job-jkd22
         image: python:3.10
-        workingDir: /data/baseball/K8_Baseball
-        command: ["/bin/bash", "-c", "python"]
+        workingDir: /data
+        command: ["python", "temp_prep.py"]
         args: 
         - python temp_prep.py
         resources:
@@ -19,6 +19,9 @@ spec:
             requests:
               memory: 32Gi
               cpu: 1
+        volumeMounts:
+            - name: jkd22-pv
+              mountPath: /data
       volumes:
       - name: jkd22-pv 
         persistentVolumeClaim:
