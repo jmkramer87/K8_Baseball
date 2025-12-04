@@ -9,5 +9,5 @@ avg = df.mean()
 
 with open(writePath, 'a') as f:
     f.write("Starting Analysis\n")
-    f.write(avg.to_string(header=True, index=False))
+    f.write(avg.to_string(header=False, index=False))
     f.write("Job complete!")
