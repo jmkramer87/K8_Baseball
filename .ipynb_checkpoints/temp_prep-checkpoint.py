@@ -3,15 +3,11 @@ import numpy as np
 
 #Data Preparation
 df = pd.read_csv('Batters_22-24_Avg_Clean_Nameless.csv', encoding='UTF-8')
+writePath = 'logs-jkd22.txt'
 
-f = open("logs-jkd22.txt", "w")
+avg = df.mean()
 
-f.write("Starting Analysis\n")
-
-f.write(df.head())
-
-f.write(df.mean())
-
-f.write("Job complete!")
-
-f.close()
+with open(writePath, 'a') as f:
+    f.write("Starting Analysis\n")
+    f.write(avg.to_string(header=True, index=False))
+    f.write("Job complete!")
