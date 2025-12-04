@@ -11,7 +11,7 @@ spec:
         workingDir: /root
         
         args: 
-        - python temp_prep.py
+        - python3 temp_prep.py
         resources:
             limits:
               memory: 32Gi
