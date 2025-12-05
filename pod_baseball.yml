@@ -17,10 +17,10 @@ spec:
     resources:
       limits:
         memory: 20Gi
-        cpu: "1"
+        cpu: 1
       requests:
         memory: 20Gi
-        cpu: "1"
+        cpu: 1
   volumes:
   - name: jkd22-pv
     persistentVolumeClaim:
