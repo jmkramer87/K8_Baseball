@@ -11,7 +11,7 @@ spec:
         workingDir: /data/baseball/K8_Baseball
         command: ["/bin/sh", "-c"]
         args: 
-        -  python3 temp_prep.py
+        -  pip install -r requirements.txt && python3 temp_prep.py 
         resources:
             limits:
               memory: 32Gi

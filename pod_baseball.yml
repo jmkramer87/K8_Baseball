@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-pvc-jkd22
+  name: pod-jkd22
 spec:
   automountServiceAccountToken: false
   containers:
