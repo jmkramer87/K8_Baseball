@@ -14,7 +14,7 @@ spec:
         workingDir: /data/baseball/K8_Baseball
         command: ["/bin/sh","-c"]
         args: 
-        - python3 main.py;
+        - python3 batters.py;
         volumeMounts:
         - name: jkd22-pv
           mountPath: /data
