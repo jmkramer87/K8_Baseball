@@ -2,7 +2,7 @@ import pandas as pd
 import math
 #import xgboost as xgb
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import root_mean_squared_error, r2_score, accuracy_score
+from sklearn.metrics import root_mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.pipeline import Pipeline
@@ -15,16 +15,16 @@ from sklearn.linear_model import Ridge
 from sklearn.linear_model import Lasso
 from sklearn.svm import SVR
 
-#Categories (hitters): r_run, batting_avg, b_rbi, r_total_stolen_base, home_run
-df = pd.read_csv('Batters 22-24 Average Cleaned.csv', encoding='UTF-8')
+#Categories (pitchers): p_win, strikeout, p_hold, p_save, p_era, whip
+df = pd.read_csv('Pitchers_22-24_Avg_Clean_Nameless.csv', encoding='UTF-8')
 
-y = df[['r_run', 'batting_avg', 'b_rbi', 'r_total_stolen_base', 'home_run']]
-X = df.drop(columns=['hit', 'last_name, first_name', 'single', 'double', 'triple', 'home_run', 'player_id', 'b_rbi', 'r_total_stolen_base', 'batting_avg', 'on_base_percent', 'r_run', 'xba', 'xslg', 'xobp'])
+y = df[['p_save', 'p_win', 'strikeout', 'p_hold', 'p_era', 'whip']]
+X = df.drop(columns=['player_id', 'p_save', 'p_win', 'strikeout', 'p_hold', 'p_era', 'whip', 'k_percent', 'p_called_strike', 'xba', 'xslg', 'xwoba'])
 X = X.astype(float)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-f = open("logs-batters.txt", "w")
+f = open("logs-pitchers.txt", "w")
 
 #Linear Regression
 model = LinearRegression()
@@ -159,7 +159,7 @@ pipe = Pipeline([
 gs_ridge = GridSearchCV(pipe, param_grid, cv=5)
 gs_ridge.fit(X_train, y_train)
 
-predictions = grid_search.predict(X_test)
+predictions = gs_ridge.predict(X_test)
 
 f.write(f"Ridge best parameters: {gs_ridge.best_params_}\n")
 f.write(f"Ridge best score: {gs_ridge.best_score_}\n")
@@ -167,7 +167,6 @@ f.write(f"Ridge R2: {r2_score(y_test, predictions)*100}\n")
 f.write(f"Ridge RMSE: {root_mean_squared_error(y_test, predictions)}\n")
 f.write(f"Ridge Training Accuracy : {metrics.accuracy_score(y_train, gs_ridge.predict(X_train))*100)}\n")
 f.write(f"Ridge Testing Accuracy: {metrics.accuracy_score(y_test, gs_ridge.predict(X_test))*100)}\n")
-
 
 #SVR
 param_grid = {
@@ -186,7 +185,7 @@ pipe = Pipeline([
 gs_svr = GridSearchCV(pipe, param_grid, cv=5)
 gs_svr.fit(X_train, y_train)
 
-predictions = grid_search.predict(X_test)
+predictions = gs_svr.predict(X_test)
 
 f.write(f"SVR best parameters: {gs_svr.best_params_}\n")
 f.write(f"SVR best score: {gs_svr.best_score_}\n")
@@ -195,7 +194,7 @@ f.write(f"SVR RMSE: {root_mean_squared_error(y_test, predictions)}\n")
 f.write(f"SVR Training Accuracy : {metrics.accuracy_score(y_train, gs_svr.predict(X_train))*100)}\n")
 f.write(f"SVR Testing Accuracy: {metrics.accuracy_score(y_test, gs_svr.predict(X_test))*100)}\n")
 
-
 f.write("Successful run!")
 
 f.close()
+
