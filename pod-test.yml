@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-custom-image-jkd22
+spec:
+  restartPolicy: Never
+  containers:
+  - name: app
+    image: gitlab-registry.nrp-nautilus.io/jmkramer87/ml_image:cf32ea7b
+    command: ["bash", "-lc"]
+    args:
+      - |
+        echo "Python version:"
+        python3 -V
+        echo "Packages:"
+        python3 -c "import numpy, pandas; print('numpy=', numpy.__version__, 'pandas=', pandas.__version__)"
+        sleep 5
