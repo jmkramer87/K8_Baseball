@@ -1,14 +1,14 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pod-baseball-jkd22
+  name: job-baseball-jkd22
 spec:
   template:
     spec:
       automountServiceAccountToken: false
       containers:
-      - name: pod-baseball-jkd22
-        image: python:3.10
+      - name: job-baseball-jkd22
+        image: gitlab-registry.nrp-nautilus.io/jmkramer87/ml_image:cf32ea7b
         tty: true
         stdin: true
         workingDir: /data/baseball/K8_Baseball
