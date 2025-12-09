@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: job-baseball-jkd22
+  name: job-jkd22
 spec:
   template:
     spec:

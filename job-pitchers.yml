@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: job-baseball-jkd22
+  name: job-jkd22
 spec:
   template:
     spec:
@@ -14,7 +14,7 @@ spec:
         workingDir: /data/baseball/K8_Baseball
         command: ["/bin/sh","-c"]
         args: 
-        - python3 batters.py;
+        - python3 pitchers.py;
         volumeMounts:
         - name: jkd22-pv
           mountPath: /data
