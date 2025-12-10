@@ -2,7 +2,7 @@ import pandas as pd
 import math
 #import xgboost as xgb
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import root_mean_squared_error, r2_score, accuracy_score
+from sklearn.metrics import r2_score, accuracy_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.pipeline import Pipeline
@@ -32,8 +32,11 @@ model.fit(X_train, y_train)
 
 predictions = model.predict(X_test)
 
+MSE = np.square(np.subtract(y_test, predictions)).mean() 
+RMSE = math.sqrt(MSE)
+
 f.write(f"Linear R2: {r2_score(y_test, predictions)*100} \n")
-f.write(f"Linear RMSE: {root_mean_squared_error(y_test, predictions)} \n")
+f.write(f"Linear RMSE: {RMSE} \n")
 f.write(f"Linear Training Accuracy : {metrics.accuracy_score(y_train, model.predict(X_train))*100} \n")
 f.write(f"Linear Testing Accuracy: {metrics.accuracy_score(y_test, model.predict(X_test))*100} \n")
 
@@ -58,10 +61,13 @@ gs_gb.fit(X_train, y_train)
 
 predictions = gs_gb.predict(X_test)
 
+MSE = np.square(np.subtract(y_test, predictions)).mean() 
+RMSE = math.sqrt(MSE)
+
 f.write(f"GradientBoost best parameters: {gs_gb.best_params_}\n")
 f.write(f"GradientBoost best score: {gs_gb.best_score_}\n")
 f.write(f"GradientBoost R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"GradientBoost RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"GradientBoost RMSE: {RMSE}\n")
 f.write(f"GradientBoost Training Accuracy : {metrics.accuracy_score(y_train, gs_gb.predict(X_train))*100}\n")
 f.write(f"GradientBoost Testing Accuracy: {metrics.accuracy_score(y_test, gs_gb.predict(X_test))*100}\n")
 
@@ -84,10 +90,13 @@ gs_dt.fit(X_train, y_train)
 
 predictions = gs_dt.predict(X_test)
 
+MSE = np.square(np.subtract(y_test, predictions)).mean() 
+RMSE = math.sqrt(MSE)
+
 f.write(f"DecisionTree best parameters: {gs_dt.best_params_}\n")
 f.write(f"DecisionTree best score: {gs_dt.best_score_}\n")
 f.write(f"DecisionTree R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"DecisionTree RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"DecisionTree RMSE: {RMSE}\n")
 f.write(f"DecisionTree Training Accuracy : {metrics.accuracy_score(y_train, gs_dt.predict(X_train))*100}\n")
 f.write(f"DecisionTree Testing Accuracy: {metrics.accuracy_score(y_test, gs_dt.predict(X_test))*100}\n")
 
@@ -111,10 +120,13 @@ gs_rf.fit(X_train, y_train)
 
 predictions = gs_rf.predict(X_test)
 
+MSE = np.square(np.subtract(y_test, predictions)).mean() 
+RMSE = math.sqrt(MSE)
+
 f.write(f"RandomForest best parameters: {gs_rf.best_params_}\n")
 f.write(f"RandomForest best score: {gs_rf.best_score_}\n")
 f.write(f"RandomForest R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"RandomForest RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"RandomForest RMSE: {RMSE}\n")
 f.write(f"RandomForest Training Accuracy : {metrics.accuracy_score(y_train, gs_rf.predict(X_train))*100}\n")
 f.write(f"RandomForest Testing Accuracy: {metrics.accuracy_score(y_test, gs_rf.predict(X_test))*100}\n")
 
@@ -136,10 +148,13 @@ gs_lasso.fit(X_train, y_train)
 
 predictions = gs_lasso.predict(X_test)
 
+MSE = np.square(np.subtract(y_test, predictions)).mean() 
+RMSE = math.sqrt(MSE)
+
 f.write(f"Lasso best parameters: {gs_lasso.best_params_}\n")
 f.write(f"Lasso best score: {gs_lasso.best_score_}\n")
 f.write(f"Lasso R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"Lasso RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"Lasso RMSE: {RMSE}\n")
 f.write(f"Lasso Training Accuracy : {metrics.accuracy_score(y_train, gs_lasso.predict(X_train))*100}\n")
 f.write(f"Lasso Testing Accuracy: {metrics.accuracy_score(y_test, gs_lasso.predict(X_test))*100}\n")
 
@@ -161,10 +176,13 @@ gs_ridge.fit(X_train, y_train)
 
 predictions = grid_search.predict(X_test)
 
+MSE = np.square(np.subtract(y_test, predictions)).mean() 
+RMSE = math.sqrt(MSE)
+
 f.write(f"Ridge best parameters: {gs_ridge.best_params_}\n")
 f.write(f"Ridge best score: {gs_ridge.best_score_}\n")
 f.write(f"Ridge R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"Ridge RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"Ridge RMSE: {RMSE}\n")
 f.write(f"Ridge Training Accuracy : {metrics.accuracy_score(y_train, gs_ridge.predict(X_train))*100}\n")
 f.write(f"Ridge Testing Accuracy: {metrics.accuracy_score(y_test, gs_ridge.predict(X_test))*100}\n")
 
@@ -188,10 +206,13 @@ gs_svr.fit(X_train, y_train)
 
 predictions = grid_search.predict(X_test)
 
+MSE = np.square(np.subtract(y_test, predictions)).mean() 
+RMSE = math.sqrt(MSE)
+
 f.write(f"SVR best parameters: {gs_svr.best_params_}\n")
 f.write(f"SVR best score: {gs_svr.best_score_}\n")
 f.write(f"SVR R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"SVR RMSE: {root_mean_squared_error(y_test, predictions)}\n")
+f.write(f"SVR RMSE: {RMSE}\n")
 f.write(f"SVR Training Accuracy : {metrics.accuracy_score(y_train, gs_svr.predict(X_train))*100}\n")
 f.write(f"SVR Testing Accuracy: {metrics.accuracy_score(y_test, gs_svr.predict(X_test))*100}\n")
 
