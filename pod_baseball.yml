@@ -16,10 +16,10 @@ spec:
       mountPath: /data
     resources:
       limits:
-        memory: 20Gi
+        memory: 2Gi
         cpu: 1
       requests:
-        memory: 20Gi
+        memory: 2Gi
         cpu: 1
   volumes:
   - name: jkd22-pv
