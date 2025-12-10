@@ -34,7 +34,7 @@ predictions = model.predict(X_test)
 
 f.write(f"Linear R2: {r2_score(y_test, predictions)*100} \n")
 f.write(f"Linear RMSE: {root_mean_squared_error(y_test, predictions)} \n")
-f.write(f"Linear Training Accuracy : {metrics.accuracy_score(y_train, model.predict(X_train))*100)} \n")
+f.write(f"Linear Training Accuracy : {metrics.accuracy_score(y_train, model.predict(X_train))*100} \n")
 f.write(f"Linear Testing Accuracy: {metrics.accuracy_score(y_test, model.predict(X_test))*100} \n")
 
 #GradientBoost
