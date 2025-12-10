@@ -6,7 +6,7 @@ spec:
   automountServiceAccountToken: false
   containers:
   - name: pod-jkd22-train
-    image: gitlab-registry.nrp-nautilus.io/jmkramer87/ml_image:cf32ea7b
+    image: python:3.10
     tty: true
     stdin: true
     workingDir: /data/baseball/

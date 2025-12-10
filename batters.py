@@ -51,7 +51,7 @@ param_grid = {
 pipe = Pipeline([
     ("scaler", StandardScaler()),
     ("pca", PCA()),
-    ("regression", GradientBoostingRegresor(n_estimators=100))
+    ("regression", GradientBoostingRegressor(n_estimators=100))
 ])
 
 gs_gb = GridSearchCV(pipe, param_grid, cv=5)
