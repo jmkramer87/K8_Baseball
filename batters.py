@@ -3,7 +3,7 @@ import numpy as np
 import math
 #import xgboost as xgb
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score, accuracy_score
+from sklearn.metrics import mean_squared_error, r2_score, accuracy_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.pipeline import Pipeline
@@ -33,8 +33,7 @@ model.fit(X_train, y_train)
 
 predictions = model.predict(X_test)
 
-MSE = np.square(np.subtract(y_test, predictions)).mean() 
-RMSE = math.sqrt(MSE)
+RMSE = math.sqrt(metrics.mean_squared_error(y_test, predictions))
 
 f.write(f"Linear R2: {r2_score(y_test, predictions)*100} \n")
 f.write(f"Linear RMSE: {RMSE} \n")
@@ -62,8 +61,7 @@ gs_gb.fit(X_train, y_train)
 
 predictions = gs_gb.predict(X_test)
 
-MSE = np.square(np.subtract(y_test, predictions)).mean() 
-RMSE = math.sqrt(MSE)
+RMSE = math.sqrt(metrics.mean_squared_error(y_test, predictions))
 
 f.write(f"GradientBoost best parameters: {gs_gb.best_params_}\n")
 f.write(f"GradientBoost best score: {gs_gb.best_score_}\n")
@@ -91,8 +89,7 @@ gs_dt.fit(X_train, y_train)
 
 predictions = gs_dt.predict(X_test)
 
-MSE = np.square(np.subtract(y_test, predictions)).mean() 
-RMSE = math.sqrt(MSE)
+RMSE = math.sqrt(metrics.mean_squared_error(y_test, predictions))
 
 f.write(f"DecisionTree best parameters: {gs_dt.best_params_}\n")
 f.write(f"DecisionTree best score: {gs_dt.best_score_}\n")
@@ -121,8 +118,7 @@ gs_rf.fit(X_train, y_train)
 
 predictions = gs_rf.predict(X_test)
 
-MSE = np.square(np.subtract(y_test, predictions)).mean() 
-RMSE = math.sqrt(MSE)
+RMSE = math.sqrt(metrics.mean_squared_error(y_test, predictions))
 
 f.write(f"RandomForest best parameters: {gs_rf.best_params_}\n")
 f.write(f"RandomForest best score: {gs_rf.best_score_}\n")
@@ -177,8 +173,7 @@ gs_ridge.fit(X_train, y_train)
 
 predictions = grid_search.predict(X_test)
 
-MSE = np.square(np.subtract(y_test, predictions)).mean() 
-RMSE = math.sqrt(MSE)
+RMSE = math.sqrt(metrics.mean_squared_error(y_test, predictions))
 
 f.write(f"Ridge best parameters: {gs_ridge.best_params_}\n")
 f.write(f"Ridge best score: {gs_ridge.best_score_}\n")
@@ -207,8 +202,7 @@ gs_svr.fit(X_train, y_train)
 
 predictions = grid_search.predict(X_test)
 
-MSE = np.square(np.subtract(y_test, predictions)).mean() 
-RMSE = math.sqrt(MSE)
+RMSE = math.sqrt(metrics.mean_squared_error(y_test, predictions))
 
 f.write(f"SVR best parameters: {gs_svr.best_params_}\n")
 f.write(f"SVR best score: {gs_svr.best_score_}\n")
