@@ -8,13 +8,13 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: job-baseball-jkd22
-        image: gitlab-registry.nrp-nautilus.io/jmkramer87/ml_image:cf32ea7b
+        image: python:3.10
         tty: true
         stdin: true
         workingDir: /data/baseball/K8_Baseball
         command: ["/bin/sh","-c"]
         args: 
-        - python3 batters.py;
+        -  pip install -r requirements.txt && python3 batters.py 
         volumeMounts:
         - name: jkd22-pv
           mountPath: /data
