@@ -36,35 +36,6 @@ RMSE = math.sqrt(mean_squared_error(y_test, predictions))
 f.write(f"Linear R2: {r2_score(y_test, predictions)*100}\n")
 f.write(f"Linear RMSE: {RMSE}\n")
 
-
-#GradientBoost
-param_grid = {
-    'pca__n_components': range(5, 60, 1),
-    'regression__max_depth': range(3, 20, 1),
-    'regression__learning_rate': [0.01, 0.1, 0.2],
-    'regression__subsample': [x / 10.0 for x in range(6, 10, 1)],
-    'regression__min_samples_split': range(2, 20, 1),
-    'regression__min_samples_leaf': [x / 10.0 for x in range(1, 10, 1)]
-}
-
-pipe = Pipeline([
-    ("scaler", StandardScaler()),
-    ("pca", PCA()),
-    ("regression", GradientBoostingRegresor(n_estimators=100))
-])
-
-gs_gb = GridSearchCV(pipe, param_grid, cv=5)
-gs_gb.fit(X_train, y_train)
-
-predictions = gs_gb.predict(X_test)
-RMSE = math.sqrt(mean_squared_error(y_test, predictions))
-
-f.write(f"GradientBoost best parameters: {gs_gb.best_params_}\n")
-f.write(f"GradientBoost best score: {gs_gb.best_score_}\n")
-f.write(f"GradientBoost R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"GradientBoost RMSE: {RMSE}\n")
-
-
 #Decision Tree
 param_grid = {
     'pca__n_components': range(10, 60, 1),
