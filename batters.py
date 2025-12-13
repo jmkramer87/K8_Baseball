@@ -21,7 +21,7 @@ start_time = time.time()
 
 #Categories (pitchers): p_win, strikeout, p_hold, p_save, p_era, whip
 #Categories (hitters): r_run, batting_avg, b_rbi, r_total_stolen_base, home_run
-df = pd.read_csv('~\\Downloads\\Batters_22-24_Avg_Clean_Nameless.csv', encoding='UTF-8')
+df = pd.read_csv('Batters_22-24_Avg_Clean_Nameless.csv', encoding='UTF-8')
 
 y = df[['r_run', 'batting_avg', 'b_rbi', 'r_total_stolen_base', 'home_run']]
 X = df.drop(columns=['hit', 'single', 'double', 'triple', 'home_run', 'player_id', 'b_rbi', 'r_total_stolen_base', 'batting_avg', 'on_base_percent', 'r_run', 'xba', 'xslg', 'xobp'])
