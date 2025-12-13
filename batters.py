@@ -21,7 +21,7 @@ start_time = time.time()
 
 #Categories (pitchers): p_win, strikeout, p_hold, p_save, p_era, whip
 #Categories (hitters): r_run, batting_avg, b_rbi, r_total_stolen_base, home_run
-df = pd.read_csv('Batters_22-24_Avg_Clean_Nameless.csv', encoding='UTF-8')
+df = pd.read_csv('~\\Downloads\\Batters_22-24_Avg_Clean_Nameless.csv', encoding='UTF-8')
 
 y = df[['r_run', 'batting_avg', 'b_rbi', 'r_total_stolen_base', 'home_run']]
 X = df.drop(columns=['hit', 'single', 'double', 'triple', 'home_run', 'player_id', 'b_rbi', 'r_total_stolen_base', 'batting_avg', 'on_base_percent', 'r_run', 'xba', 'xslg', 'xobp'])
@@ -29,7 +29,7 @@ X = X.astype(float)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-f = open("logs-batters.txt", "w")
+f = open("logs-batters.txt", "a")
 
 #Linear Regression
 model = LinearRegression()
@@ -43,7 +43,7 @@ f.write(f"Linear RMSE: {RMSE}\n")
 
 #GradientBoost
 param_grid = {
-    'pca__n_components': range(5, 60, 1),
+    'pca__n_components': range(5, 50, 5),
     'regression__max_depth': range(3, 20, 1),
     'regression__learning_rate': [0.01, 0.1, 0.2],
     'regression__subsample': [x / 10.0 for x in range(6, 10, 1)],
@@ -54,7 +54,7 @@ param_grid = {
 pipe = Pipeline([
     ("scaler", StandardScaler()),
     ("pca", PCA()),
-    ("regression", GradientBoostingRegressor(n_estimators=100))
+    ("regression", GradientBoostingRegressor())
 ])
 
 gs_gb = GridSearchCV(pipe, param_grid, cv=5)
@@ -70,8 +70,8 @@ f.write(f"GradientBoost RMSE: {RMSE}\n")
 
 #Decision Tree
 param_grid = {
-    'pca__n_components': range(10, 60, 1),
-    'regression__max_depth': range(10, 30, 1),
+    'pca__n_components': range(10, 50, 5),
+    'regression__max_depth': range(10, 30, 2),
     'regression__min_samples_split': range(2, 10, 1),
     'regression__min_samples_leaf': range(1, 8, 1)
 }
@@ -93,14 +93,13 @@ f.write(f"DecisionTree best score (overall R2): {gs_dt.best_score_}\n")
 f.write(f"DecisionTree R2: {r2_score(y_test, predictions)*100}\n")
 f.write(f"DecisionTree RMSE: {RMSE}\n")
 
-
 #Random Forest
 param_grid = {
-    'pca__n_components': range(10, 60, 1),
-    'regression__max_depth': range(10, 30, 1),
+    'pca__n_components': range(10, 60, 5),
+    'regression__max_depth': range(10, 30, 2),
     'regression__min_samples_split': range(2, 10, 1),
     'regression__min_samples_leaf': range(1, 8, 1),
-    'regression__n_estimators': range(50, 200, 10)
+    'regression__n_estimators': range(50, 200, 25)
 }
 
 pipe = Pipeline([
@@ -122,9 +121,9 @@ f.write(f"RandomForest RMSE: {RMSE}\n")
 
 #Lasso
 param_grid = {
-    'pca__n_components': range(10, 60, 1),
+    'pca__n_components': range(10, 50, 5),
     'regression__alpha': [x / 100.0 for x in range(5, 20, 1)],
-    'regression__max_iter': range(500, 2000, 100)
+    'regression__max_iter': range(500, 2000, 250)
 }
 
 pipe = Pipeline([
@@ -146,9 +145,9 @@ f.write(f"Lasso RMSE: {RMSE}\n")
 
 #Ridge
 param_grid = {
-    'pca__n_components': range(10, 60, 1),
+    'pca__n_components': range(10, 50, 5),
     'regression__alpha': [x / 100.0 for x in range(5, 20, 1)],
-    'regression__max_iter': range(500, 2000, 100)
+    'regression__max_iter': range(500, 2000, 250)
 }
 
 pipe = Pipeline([
@@ -170,16 +169,15 @@ f.write(f"Ridge RMSE: {RMSE}\n")
 
 #SVR
 param_grid = {
-    'pca__n_components': range(10, 60, 1),
-    'regression__epsilon': [0.001, 0.01, 0.1, 1],
-    'regression__C': range(1, 100, 1),
-    'regression__kernel': ['linear', 'poly', 'rbf', 'sigmoid']
+    'pca__n_components': range(10, 50, 5),
+    'regression__n_neighbors': range(5, 15, 1),
+    'regression__weights': ['uniform', 'distance']
 }
 
 pipe = Pipeline([
     ("scaler", StandardScaler()),
     ("pca", PCA()),
-    ("regression", SVR())
+    ("regression", KNeighborsRegressor())
 ])
 
 gs_kn = GridSearchCV(pipe, param_grid, cv=5)
