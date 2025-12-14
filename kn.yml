@@ -1,20 +1,20 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: job-jkd22
+  name: job-kn
 spec:
   template:
     spec:
       automountServiceAccountToken: false
       containers:
-      - name: job-baseball-jkd22
+      - name: job-kn
         image: python:3.10
         tty: true
         stdin: true
         workingDir: /data/baseball/K8_Baseball
         command: ["/bin/sh","-c"]
         args: 
-        -  pip install -r requirements.txt && python3 batters.py 
+        -  pip install -r requirements.txt && python3 batters_kn.py 
         volumeMounts:
         - name: jkd22-pv
           mountPath: /data
