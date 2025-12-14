@@ -31,16 +31,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 f = open("log-ridge.txt", "a")
 
-#Linear Regression
-model = LinearRegression()
-model.fit(X_train, y_train)
-
-predictions = model.predict(X_test)
-RMSE = math.sqrt(mean_squared_error(y_test, predictions))
-
-f.write(f"Linear R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"Linear RMSE: {RMSE}\n")
-
 #Ridge
 param_grid = {
     'pca__n_components': range(10, 50, 5),

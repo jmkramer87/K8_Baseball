@@ -29,30 +29,32 @@ X = X.astype(float)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-f = open("log-kn.txt", "a")
+f = open("log-ranfor.txt", "a")
 
+#Decision Tree
 param_grid = {
     'pca__n_components': range(10, 50, 5),
-    'regression__n_neighbors': range(5, 15, 1),
-    'regression__weights': ['uniform', 'distance']
+    'regression__max_depth': range(10, 30, 2),
+    'regression__min_samples_split': range(2, 10, 1),
+    'regression__min_samples_leaf': range(1, 8, 1)
 }
 
 pipe = Pipeline([
     ("scaler", StandardScaler()),
     ("pca", PCA()),
-    ("regression", KNeighborsRegressor())
+    ("regression", DecisionTreeRegressor())
 ])
 
-gs_kn = GridSearchCV(pipe, param_grid, cv=5)
-gs_kn.fit(X_train, y_train)
+gs_dt = GridSearchCV(pipe, param_grid, cv=5)
+gs_dt.fit(X_train, y_train)
 
-predictions = gs_kn.predict(X_test)
+predictions = gs_dt.predict(X_test)
 RMSE = math.sqrt(mean_squared_error(y_test, predictions))
 
-f.write(f"KNeighbors best parameters: {gs_kn.best_params_}\n")
-f.write(f"KNeighbors best score: {gs_kn.best_score_}\n")
-f.write(f"KNeighbors R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"KNeighbors RMSE: {RMSE}\n")
+f.write(f"DecisionTree best parameters: {gs_dt.best_params_}\n")
+f.write(f"DecisionTree best score (overall R2): {gs_dt.best_score_}\n")
+f.write(f"DecisionTree R2: {r2_score(y_test, predictions)*100}\n")
+f.write(f"DecisionTree RMSE: {RMSE}\n")
 
 f.write("Successful run!")
 f.write(f"Total time: {time.time() - start_time}")
