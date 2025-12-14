@@ -51,7 +51,7 @@ param_grid = {
 pipe = Pipeline([
     ("scaler", StandardScaler()),
     ("pca", PCA()),
-    ("regression", MultiTaskLasso())
+    ("regression", Lasso())
 ])
 
 gs_lasso = GridSearchCV(pipe, param_grid, cv=5)
