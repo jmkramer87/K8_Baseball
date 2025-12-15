@@ -31,23 +31,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 f = open("log-ranfor.txt", "a")
 
-#Linear Regression
-model = LinearRegression()
-model.fit(X_train, y_train)
-
-predictions = model.predict(X_test)
-RMSE = math.sqrt(mean_squared_error(y_test, predictions))
-
-f.write(f"Linear R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"Linear RMSE: {RMSE}\n")
-
 #Random Forest
 param_grid = {
     'pca__n_components': range(10, 60, 5),
     'regression__max_depth': range(10, 30, 2),
     'regression__min_samples_split': range(2, 10, 1),
     'regression__min_samples_leaf': range(1, 8, 1),
-    'regression__n_estimators': range(50, 200, 25)
+    'regression__n_estimators': range(100, 200, 20)
 }
 
 pipe = Pipeline([

@@ -29,31 +29,17 @@ X = X.astype(float)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-f = open("log-lasso.txt", "a")
+f = open("log-linear.txt", "a")
 
-#Lasso
-param_grid = {
-    'pca__n_components': range(10, 50, 5),
-    'regression__alpha': [x / 100.0 for x in range(5, 20, 1)],
-    'regression__max_iter': range(500, 2000, 250)
-}
+#Linear Regression
+model = LinearRegression()
+model.fit(X_train, y_train)
 
-pipe = Pipeline([
-    ("scaler", StandardScaler()),
-    ("pca", PCA()),
-    ("regression", Lasso())
-])
-
-gs_lasso = GridSearchCV(pipe, param_grid, cv=5)
-gs_lasso.fit(X_train, y_train)
-
-predictions = gs_lasso.predict(X_test)
+predictions = model.predict(X_test)
 RMSE = math.sqrt(mean_squared_error(y_test, predictions))
 
-f.write(f"Lasso best parameters: {gs_lasso.best_params_}\n")
-f.write(f"Lasso best score: {gs_lasso.best_score_}\n")
-f.write(f"Lasso R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"Lasso RMSE: {RMSE}\n")
+f.write(f"Linear R2: {r2_score(y_test, predictions)*100}\n")
+f.write(f"Linear RMSE: {RMSE}\n")
 
 f.write("Successful run!")
 f.write(f"Total time: {time.time() - start_time}")

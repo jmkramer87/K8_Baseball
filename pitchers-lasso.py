@@ -21,21 +21,21 @@ start_time = time.time()
 
 #Categories (pitchers): p_win, strikeout, p_hold, p_save, p_era, whip
 #Categories (hitters): r_run, batting_avg, b_rbi, r_total_stolen_base, home_run
-df = pd.read_csv('Batters_22-24_Avg_Clean_Nameless.csv', encoding='UTF-8')
+df = pd.read_csv('Pitchers_22-24_Avg_Clean_Nameless.csv', encoding='UTF-8')
 
-y = df[['r_run', 'batting_avg', 'b_rbi', 'r_total_stolen_base', 'home_run']]
-X = df.drop(columns=['hit', 'single', 'double', 'triple', 'home_run', 'player_id', 'b_rbi', 'r_total_stolen_base', 'batting_avg', 'on_base_percent', 'r_run', 'xba', 'xslg', 'xobp'])
+y = df[['p_save', 'p_win', 'strikeout', 'p_hold', 'p_era', 'whip']]
+X = df.drop(columns=['player_id', 'p_save', 'p_win', 'strikeout', 'p_hold', 'p_era', 'whip', 'k_percent', 'p_called_strike', 'xba', 'xslg', 'xwoba'])
 X = X.astype(float)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-f = open("log-lasso.txt", "a")
+f = open("logp-lasso.txt", "w")
 
 #Lasso
 param_grid = {
-    'pca__n_components': range(10, 50, 5),
+    'pca__n_components': range(10, 60, 1),
     'regression__alpha': [x / 100.0 for x in range(5, 20, 1)],
-    'regression__max_iter': range(500, 2000, 250)
+    'regression__max_iter': range(500, 2000, 100)
 }
 
 pipe = Pipeline([

@@ -29,31 +29,32 @@ X = X.astype(float)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-f = open("log-lasso.txt", "a")
+f = open("log-dectree.txt", "a")
 
-#Lasso
+#Decision Tree
 param_grid = {
     'pca__n_components': range(10, 50, 5),
-    'regression__alpha': [x / 100.0 for x in range(5, 20, 1)],
-    'regression__max_iter': range(500, 2000, 250)
+    'regression__max_depth': range(10, 30, 2),
+    'regression__min_samples_split': range(2, 10, 1),
+    'regression__min_samples_leaf': range(1, 8, 1)
 }
 
 pipe = Pipeline([
     ("scaler", StandardScaler()),
     ("pca", PCA()),
-    ("regression", Lasso())
+    ("regression", DecisionTreeRegressor())
 ])
 
-gs_lasso = GridSearchCV(pipe, param_grid, cv=5)
-gs_lasso.fit(X_train, y_train)
+gs_dt = GridSearchCV(pipe, param_grid, cv=5)
+gs_dt.fit(X_train, y_train)
 
-predictions = gs_lasso.predict(X_test)
+predictions = gs_dt.predict(X_test)
 RMSE = math.sqrt(mean_squared_error(y_test, predictions))
 
-f.write(f"Lasso best parameters: {gs_lasso.best_params_}\n")
-f.write(f"Lasso best score: {gs_lasso.best_score_}\n")
-f.write(f"Lasso R2: {r2_score(y_test, predictions)*100}\n")
-f.write(f"Lasso RMSE: {RMSE}\n")
+f.write(f"DecisionTree best parameters: {gs_dt.best_params_}\n")
+f.write(f"DecisionTree best score (overall R2): {gs_dt.best_score_}\n")
+f.write(f"DecisionTree R2: {r2_score(y_test, predictions)*100}\n")
+f.write(f"DecisionTree RMSE: {RMSE}\n")
 
 f.write("Successful run!")
 f.write(f"Total time: {time.time() - start_time}")

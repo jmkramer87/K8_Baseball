@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-dectreep
+spec:
+  template:
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: job-dectreep
+        image: python:3.10
+        tty: true
+        stdin: true
+        workingDir: /data/baseball/K8_Baseball
+        command: ["/bin/sh","-c"]
+        args: 
+        -  pip install -r requirements.txt && python3 pitchers_dectree.py 
+        volumeMounts:
+        - name: jkd22-pv
+          mountPath: /data
+        resources:
+            limits:
+              memory: 2Gi
+              cpu: 2
+            requests:
+              memory: 2Gi
+              cpu: 2
+      volumes:
+      - name: jkd22-pv 
+        persistentVolumeClaim:
+            claimName: jkd22-pv
+      restartPolicy: Never      
+  backoffLimit: 1
+

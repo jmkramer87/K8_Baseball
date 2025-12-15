@@ -6,11 +6,11 @@ spec:
   automountServiceAccountToken: false
   containers:
   - name: pod-jkd22-train
-    image: python:3.10
+    image: ubuntu:20.04
     tty: true
     stdin: true
     workingDir: /data/baseball/
-    command: ["/bin/sh", "-c", "echo 'Im a new pod' && sleep infinity"]
+    command: ["/bin/bash", "-c", "echo 'Im a new pod' && sleep infinity"]
     volumeMounts:
     - name: jkd22-pv
       mountPath: /data

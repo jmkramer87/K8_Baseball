@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-gbp
+spec:
+  template:
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: job-gbp
+        image: python:3.10
+        tty: true
+        stdin: true
+        workingDir: /data/baseball/K8_Baseball
+        command: ["/bin/sh","-c"]
+        args: 
+        -  pip install -r requirements.txt && python3 pitchers_gb.py 
+        volumeMounts:
+        - name: jkd22-pv
+          mountPath: /data
+        resources:
+            limits:
+              memory: 2Gi
+              cpu: 4
+            requests:
+              memory: 2Gi
+              cpu: 4
+      volumes:
+      - name: jkd22-pv 
+        persistentVolumeClaim:
+            claimName: jkd22-pv
+      restartPolicy: Never      
+  backoffLimit: 1
+
